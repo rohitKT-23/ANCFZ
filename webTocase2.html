@@ -623,6 +623,9 @@
       <!-- Submission Channel: fixed to "Contact Us" for this page (Chairman page uses "Chairman Form"). -->
       <input type="hidden" name="00Na300LmNGrfpc" id="00Na300LmNGrfpc" value="Contact Us">
 
+      <!-- Case Origin: must match the Origin picklist API value exactly. -->
+      <input type="hidden" name="origin" id="origin" value="Contact Us Web Form">
+
       <input type="hidden" id="external" name="external" value="1" />
 
       <!--  ----------------------------------------------------------------------  -->
@@ -664,15 +667,12 @@
             <span class="field-error" id="err-email">Please enter a valid email address.</span>
           </div>
 
-          <!-- Enquiry Type → Salesforce Inquiry Type field.
-               TODO: the company-org Web-to-Case HTML did not include Inquiry Type.
-               Regenerate it with Inquiry Type selected and replace
-               COMPANY_ORG_INQUIRY_TYPE_FIELD_ID below; until then this value is not saved.
+          <!-- Enquiry Type → Salesforce Inquiry_Type__c 00Na300LmMoulfI
                Option values must match Salesforce picklist API values exactly.
                "Enquiry" is shown to the customer but submits "General Inquiry". -->
           <div class="field full">
-            <label for="enquiryType">Enquiry Type<span class="req" aria-hidden="true">*</span></label>
-            <select id="enquiryType" name="COMPANY_ORG_INQUIRY_TYPE_FIELD_ID" title="Inquiry Type" required aria-describedby="err-type">
+            <label for="00Na300LmMoulfI">Enquiry Type<span class="req" aria-hidden="true">*</span></label>
+            <select id="00Na300LmMoulfI" name="00Na300LmMoulfI" title="Inquiry Type" required aria-describedby="err-type">
               <option value="" disabled selected>Select Enquiry Type</option>
               <option value="Complaint">Complaint</option>
               <option value="Suggestion">Suggestion</option>
