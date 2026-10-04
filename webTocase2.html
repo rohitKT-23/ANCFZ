@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--  ----------------------------------------------------------------------  -->
+<!--  NOTE: Please add the following <META> element to your page <HEAD>.      -->
+<!--  If necessary, please modify the charset parameter to specify the        -->
+<!--  character set of your HTML page.                                        -->
+<!--  ----------------------------------------------------------------------  -->
+
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact Us</title>
+
+<style>
+  /* ==========================================================
+     1. DESIGN TOKENS
+     ========================================================== */
+  :root {
+    --primary: #2C6192;
+    --primary-dark: #234E77;
+    --primary-ring: rgba(44, 97, 146, 0.18);
+    --panel-label: #8FD0F5;
+    --text: #2B2B2B;
+    --text-muted: #6B7280;
+    --input-bg: #EEF1F6;
+    --input-border: #C9D1DE;
+    --card-border: #E3E7EE;
+    --page-bg: #FFFFFF;
+    --required: #D9363E;
+    --white: #FFFFFF;
+
+    --radius-panel: 24px;
+    --radius-card: 12px;
+    --radius-input: 8px;
+
+    --container: 1260px;
+    --font: "Helvetica Neue", Helvetica, Arial, "Segoe UI", sans-serif;
+  }
+
+  /* ==========================================================
+     2. BASE
+     ========================================================== */
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--page-bg);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; }
+
+  svg { display: block; flex-shrink: 0; }
+
+  .container {
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+
+  /* ==========================================================
+     3. HEADER (logo only)
+     ========================================================== */
+  .site-header { padding: 20px 0; }
+
+  .logo-slot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    height: 60px;
+    padding: 0 16px;
+    border: 1.5px dashed var(--input-border);
+    border-radius: var(--radius-input);
+    color: var(--text-muted);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .logo-slot img { height: 60px; width: auto; }
+
+  /* ==========================================================
+     4. PAGE INTRO
+     ========================================================== */
+  .page-intro { padding-top: 40px; padding-bottom: 44px; }
+
+  .page-intro h1 {
+    margin: 0 0 22px;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--primary);
+  }
+
+  .page-intro p { margin: 0; font-size: 15px; color: var(--text); }
+
+  /* ==========================================================
+     5. CONTACT SECTION
+        Grid: blue panel spans columns 1-2, form card spans 2-3
+        and sits lower so it overlaps the panel's right edge.
+     ========================================================== */
+  .contact-section {
+    display: grid;
+    grid-template-columns: 31% 41% 13% 15%;
+    grid-template-rows: 86px auto minmax(130px, auto);
+    margin-bottom: 48px;
+  }
+
+  /* ---------- 5a. Blue information panel ---------- */
+  .info-panel {
+    grid-column: 1 / 3;
+    grid-row: 1 / 4;
+    display: flex;
+    flex-direction: column;
+    background: var(--primary);
+    color: var(--white);
+    border-radius: var(--radius-panel);
+    padding: 36px 36px 32px;
+  }
+
+  .info-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: calc(31vw - 60px);
+    width: 320px;
+  }
+
+  .info-item + .info-item { margin-top: 24px; }
+
+  .info-label {
+    display: block;
+    font-size: 13px;
+    color: var(--panel-label);
+    margin-bottom: 8px;
+  }
+
+  .info-value {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 16px;
+    color: var(--white);
+    text-decoration: none;
+    word-break: break-word;
+  }
+  .info-value svg { width: 22px; height: 22px; color: var(--panel-label); margin-top: 1px; }
+  a.info-value:hover span { text-decoration: underline; }
+
+  .social-row {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 65%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .social-row .info-label { margin: 0; }
+
+  .social-links { display: flex; gap: 14px; }
+  .social-links a {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: var(--white);
+    transition: background-color 0.2s ease;
+  }
+  .social-links a:hover { background: rgba(255, 255, 255, 0.15); }
+  .social-links a:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
+  .social-links svg { width: 20px; height: 20px; }
+
+  /* ---------- 5b. Floating form card ---------- */
+  .form-card {
+    grid-column: 2 / 4;
+    grid-row: 2 / 3;
+    align-self: start;
+    position: relative;
+    z-index: 1;
+    background: var(--white);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-card);
+    box-shadow: 0 12px 32px rgba(17, 38, 66, 0.10);
+    padding: 36px 40px 40px;
+  }
+
+  .form-card h2 {
+    margin: 0 0 24px;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 20px;
+  }
+
+  .field { display: flex; flex-direction: column; min-width: 0; }
+  .field.full { grid-column: 1 / -1; }
+
+  .field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .field .req { color: var(--required); margin-left: 2px; }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-input);
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .field input,
+  .field select { height: 46px; padding: 0 14px; }
+
+  .field select {
+    padding-right: 40px;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232C6192' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 18px;
+  }
+  .field select:invalid { color: #8A93A3; }
+  .field select option { color: var(--text); }
+
+  .field textarea {
+    min-height: 130px;
+    padding: 12px 14px;
+    line-height: 1.5;
+    resize: vertical;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder { color: #8A93A3; }
+
+  .field input:hover,
+  .field select:hover,
+  .field textarea:hover { border-color: #A9B5C8; }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    background-color: var(--white);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-ring);
+  }
+
+  .field.invalid input,
+  .field.invalid select,
+  .field.invalid textarea { border-color: var(--required); }
+
+  .field.invalid input:focus,
+  .field.invalid select:focus,
+  .field.invalid textarea:focus { box-shadow: 0 0 0 4px rgba(217, 54, 62, 0.14); }
+
+  .field-error {
+    display: none;
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--required);
+  }
+  .field.invalid .field-error { display: block; }
+
+  .field-counter {
+    align-self: flex-end;
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .btn-send {
+    width: 100%;
+    height: 46px;
+    margin-top: 24px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--primary);
+    border: none;
+    border-radius: var(--radius-input);
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .btn-send:hover { background: var(--primary-dark); }
+  .btn-send:active { transform: translateY(1px); }
+  .btn-send:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--primary-ring); }
+  .btn-send.is-loading { opacity: 0.8; cursor: progress; pointer-events: none; }
+
+  /* ==========================================================
+     6. FOOTER
+     ========================================================== */
+  .site-footer {
+    background: var(--primary);
+    color: var(--white);
+    padding: 56px 0 0;
+    margin-top: 48px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 40px;
+  }
+
+  .footer-logo-slot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    height: 56px;
+    padding: 0 16px;
+    margin-bottom: 24px;
+    border: 1.5px dashed rgba(255, 255, 255, 0.45);
+    border-radius: var(--radius-input);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .footer-logo-slot img { height: 56px; width: auto; }
+
+  .footer-contact { list-style: none; margin: 0 0 20px; padding: 0; }
+  .footer-contact li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+  }
+  .footer-contact li + li { margin-top: 14px; }
+  .footer-contact .badge {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.15);
+  }
+  .footer-contact .badge svg { width: 14px; height: 14px; }
+
+  .footer-social { display: flex; gap: 12px; }
+  .footer-social a {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: var(--white);
+    transition: background-color 0.2s ease;
+  }
+  .footer-social a:hover { background: rgba(255, 255, 255, 0.15); }
+  .footer-social a:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
+  .footer-social svg { width: 20px; height: 20px; }
+
+  .footer-heading {
+    margin: 0 0 22px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .quick-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 32px;
+  }
+  .quick-links a {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .quick-links a:hover { color: var(--white); text-decoration: underline; }
+
+  .footer-contact a { color: var(--white); text-decoration: none; }
+  .footer-contact a:hover { text-decoration: underline; }
+
+  .footer-note {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    max-width: 520px;
+    font-size: 12px;
+  }
+  .footer-note p { margin: 0; color: rgba(255, 255, 255, 0.9); }
+
+  .visitor-wrap { text-align: center; padding-bottom: 20px; }
+  .visitor-count {
+    display: inline-block;
+    padding: 8px 18px;
+    background: var(--white);
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    padding-top: 20px;
+    padding-bottom: 24px;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* ==========================================================
+     7. RESPONSIVE
+     ========================================================== */
+
+  /* Tablet landscape: widen the card, keep overlap */
+  @media (max-width: 1199px) {
+    .contact-section { grid-template-columns: 36% 40% 18% 6%; }
+    .info-list { max-width: calc(36vw - 72px); }
+    .form-card { padding: 32px; }
+  }
+
+  /* Tablet portrait & mobile: stack panel and card */
+  @media (max-width: 991px) {
+    .contact-section {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-panel { padding: 32px 28px 28px; }
+
+    .info-list {
+      width: auto;
+      max-width: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 32px;
+    }
+    .info-item + .info-item { margin-top: 0; }
+
+    .social-row { max-width: none; margin-top: 28px; }
+
+    .form-card {
+      margin: -24px 16px 0;
+      padding: 28px 24px 32px;
+    }
+
+    .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 0 16px; }
+    .page-intro { padding-top: 24px; padding-bottom: 28px; }
+    .page-intro h1 { font-size: 26px; margin-bottom: 14px; }
+
+    .info-panel { border-radius: 18px; padding: 28px 20px 24px; }
+    .info-list { grid-template-columns: 1fr; gap: 20px; }
+
+    .social-row { flex-direction: column; align-items: flex-start; }
+
+    .form-card { margin: -20px 0 0; padding: 24px 18px 28px; }
+    .form-grid { grid-template-columns: 1fr; }
+
+    .quick-links { gap: 12px 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==========================================================
+     HEADER — logo only (no navigation)
+     ========================================================== -->
+<header class="site-header">
+  <div class="container">
+    <!-- LOGO: replace the text inside .logo-slot with
+         <img src="assets/logo.png" alt="[ORGANIZATION NAME]">
+         and remove the dashed border from .logo-slot in CSS. -->
+    <a class="logo-slot" href="index.html" aria-label="Home">[LOGO]</a>
+  </div>
+</header>
+
+<main>
+  <!-- ==========================================================
+       PAGE INTRO
+       ========================================================== -->
+  <section class="container page-intro">
+    <h1>Contact us</h1>
+    <p>Welcome to our communication channel! We are here to listen to your feedback and needs to ensure that we deliver outstanding services that meet your expectations. Please feel free to contact us at any time, and we will get back to you within one business day.</p>
+  </section>
+
+  <!-- ==========================================================
+       CONTACT SECTION — info panel + form card
+       ========================================================== -->
+  <section class="container contact-section" aria-label="Contact information and form">
+
+    <!-- ---------- Contact information (replace [PLACEHOLDERS]) ---------- -->
+    <aside class="info-panel" aria-label="Contact information">
+      <ul class="info-list">
+        <li class="info-item">
+          <span class="info-label">Website</span>
+          <a class="info-value" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span>[WEBSITE]</span>
+          </a>
+        </li>
+        <li class="info-item">
+          <span class="info-label">E-mail</span>
+          <a class="info-value" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            <span>[EMAIL]</span>
+          </a>
+        </li>
+        <li class="info-item">
+          <span class="info-label">To communicate with the Chairman</span>
+          <a class="info-value" href="webTocase3.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg>
+            <span>Contact Chairman</span>
+          </a>
+        </li>
+        <li class="info-item">
+          <span class="info-label">WhatsApp Number</span>
+          <a class="info-value" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.65-4.5A9 9 0 1 1 7.5 19.5z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a3.5 3.5 0 0 1-1.8-1.8l.8-1-1-2z"/></svg>
+            <span>[WHATSAPP NUMBER]</span>
+          </a>
+        </li>
+        <li class="info-item">
+          <span class="info-label">Ajman Contact Centre</span>
+          <a class="info-value" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>[CONTACT NUMBER]</span>
+          </a>
+        </li>
+        <li class="info-item">
+          <span class="info-label">Working Hours</span>
+          <div class="info-value">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            <span>[WORKING HOURS]</span>
+          </div>
+        </li>
+        <li class="info-item">
+          <a class="info-value" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Department Location <span class="sr-only">:</span> [LOCATION]</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="social-row">
+        <span class="info-label">Our social media accounts</span>
+        <nav class="social-links" aria-label="Social media">
+          <a href="#" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.65-4.5A9 9 0 1 1 7.5 19.5z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a3.5 3.5 0 0 1-1.8-1.8l.8-1-1-2z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+          </a>
+          <a href="#" aria-label="X">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3a5 5 0 0 0-5 5v2H7v4h2v7h4v-7h3l1-4h-4V9a1 1 0 0 1 1-1z"/></svg>
+          </a>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- ---------- Form card ---------- -->
+    <div class="form-card">
+      <h2 id="form-title">Contact us</h2>
+
+      <!-- ================================================================
+           SALESFORCE WEB-TO-CASE — DO NOT MODIFY
+           action URL, method, orgid, retURL, hidden inputs, and every
+           input "name" attribute below are required by Salesforce.
+           ================================================================ -->
+
+      <!--  ----------------------------------------------------------------------  -->
+      <!--  NOTE: Please add the following <FORM> element to your page.             -->
+      <!--  ----------------------------------------------------------------------  -->
+
+      <form id="caseForm" action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00Da3004nNGG8S4" method="POST" aria-labelledby="form-title" novalidate>
+
+      <input type=hidden name="orgid" value="00Da3004nNGG8S4">
+      <input type=hidden name="retURL" value="http://example.com">
+
+      <!-- Submission Channel: fixed to "Contact Us" for this page (Chairman page uses "Chairman Form"). -->
+      <input type="hidden" name="00Na300LmNGrfpc" id="00Na300LmNGrfpc" value="Contact Us">
+
+      <input type="hidden" id="external" name="external" value="1" />
+
+      <!--  ----------------------------------------------------------------------  -->
+      <!--  NOTE: These fields are optional debugging elements. Please uncomment    -->
+      <!--  these lines if you wish to test in debug mode.                          -->
+      <!--  <input type="hidden" name="debug" value=1>                              -->
+      <!--  <input type="hidden" name="debugEmail"                                  -->
+      <!--  value="mohamed.jassem@apcd.ae">                                         -->
+      <!--  ----------------------------------------------------------------------  -->
+
+      <!-- ================= END SALESFORCE HIDDEN FIELDS ================= -->
+
+        <div class="form-grid">
+
+          <!-- Customer Name → Salesforce field 00Na300LmNGK6fM -->
+          <div class="field">
+            <label for="00Na300LmNGK6fM">Name<span class="req" aria-hidden="true">*</span></label>
+            <input id="00Na300LmNGK6fM" maxlength="255" name="00Na300LmNGK6fM" size="20" type="text" placeholder="Full Name" autocomplete="name" required aria-describedby="err-name" />
+            <span class="field-error" id="err-name">Please enter your name.</span>
+          </div>
+
+          <!-- Company Name → Salesforce field 00Na300LmoDZoGy -->
+          <div class="field">
+            <label for="00Na300LmoDZoGy">Company Name</label>
+            <input id="00Na300LmoDZoGy" maxlength="255" name="00Na300LmoDZoGy" size="20" type="text" placeholder="Company Name" autocomplete="organization" />
+          </div>
+
+          <!-- Mobile → Salesforce field phone -->
+          <div class="field">
+            <label for="phone">Mobile<span class="req" aria-hidden="true">*</span></label>
+            <input id="phone" maxlength="40" name="phone" size="20" type="tel" placeholder="Mobile Number" autocomplete="tel" inputmode="tel" pattern="[0-9+()\-\s]{7,40}" required aria-describedby="err-phone" />
+            <span class="field-error" id="err-phone">Please enter a valid mobile number.</span>
+          </div>
+
+          <!-- Email → Salesforce field email -->
+          <div class="field">
+            <label for="email">Email<span class="req" aria-hidden="true">*</span></label>
+            <input id="email" maxlength="80" name="email" size="20" type="email" placeholder="name@domain.com" autocomplete="email" required aria-describedby="err-email" />
+            <span class="field-error" id="err-email">Please enter a valid email address.</span>
+          </div>
+
+          <!-- Enquiry Type → Salesforce Inquiry Type field.
+               TODO: the company-org Web-to-Case HTML did not include Inquiry Type.
+               Regenerate it with Inquiry Type selected and replace
+               COMPANY_ORG_INQUIRY_TYPE_FIELD_ID below; until then this value is not saved.
+               Option values must match Salesforce picklist API values exactly.
+               "Enquiry" is shown to the customer but submits "General Inquiry". -->
+          <div class="field full">
+            <label for="enquiryType">Enquiry Type<span class="req" aria-hidden="true">*</span></label>
+            <select id="enquiryType" name="COMPANY_ORG_INQUIRY_TYPE_FIELD_ID" title="Inquiry Type" required aria-describedby="err-type">
+              <option value="" disabled selected>Select Enquiry Type</option>
+              <option value="Complaint">Complaint</option>
+              <option value="Suggestion">Suggestion</option>
+              <option value="General Inquiry">Enquiry</option>
+            </select>
+            <span class="field-error" id="err-type">Please select an enquiry type.</span>
+          </div>
+
+          <!-- Message → Salesforce field description -->
+          <div class="field full">
+            <label for="description">Message<span class="req" aria-hidden="true">*</span></label>
+            <textarea id="description" name="description" maxlength="32000" placeholder="Enter your message or enquiry" required aria-describedby="err-desc desc-count"></textarea>
+            <span class="field-error" id="err-desc">Please enter your message.</span>
+            <span class="field-counter" id="desc-count" aria-live="polite">0 / 32000</span>
+          </div>
+
+        </div>
+
+        <input class="btn-send" type="submit" name="submit" value="Send">
+
+      </form>
+      <!-- ================= END SALESFORCE WEB-TO-CASE FORM ================= -->
+    </div>
+
+  </section>
+</main>
+
+<!-- ==========================================================
+     FOOTER (replace [PLACEHOLDERS] and "#" links)
+     ========================================================== -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div>
+      <!-- FOOTER LOGO: replace text with <img src="assets/logo-white.png" alt="[ORGANIZATION NAME]"> -->
+      <div class="footer-logo-slot">[FOOTER LOGO]</div>
+
+      <ul class="footer-contact">
+        <li>
+          <span class="badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </span>
+          <a href="tel:80070">Ajman Contact Center: 80070</a>
+        </li>
+        <li>
+          <span class="badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          </span>
+          <a href="mailto:info@apcd.ae">info@apcd.ae</a>
+        </li>
+      </ul>
+
+      <nav class="footer-social" aria-label="Social media">
+        <a href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3a5 5 0 0 0-5 5v2H7v4h2v7h4v-7h3l1-4h-4V9a1 1 0 0 1 1-1z"/></svg>
+        </a>
+        <a href="#" aria-label="X">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+        </a>
+        <a href="#" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.65-4.5A9 9 0 1 1 7.5 19.5z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a3.5 3.5 0 0 1-1.8-1.8l.8-1-1-2z"/></svg>
+        </a>
+      </nav>
+
+      <!-- MAP: add an embedded map or map image here once an official asset/URL is available. -->
+
+      <div class="footer-note">
+        <p>The site is best viewed using Microsoft Edge, Mozilla Firefox, Safari and Chrome.<br>Optimal Screen Resolution: 1440 &times; 900</p>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="footer-heading">Quick Links</h3>
+      <ul class="quick-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="webTocase2.html" aria-current="page">Contact Us</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="webTocase3.html">Contact Chairman</a></li>
+        <li><a href="#">Open Data Policy</a></li>
+        <li><a href="#">Write a Suggestion</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Terms and Conditions</a></li>
+        <li><a href="#">Customer Experience Promise</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">News</a></li>
+        <li><a href="#">Emergency</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- VISITOR COUNT: replace [VISITOR COUNT] with the value from your analytics/counter service. -->
+  <div class="container visitor-wrap">
+    <span class="visitor-count">Visitor Count: [VISITOR COUNT]</span>
+  </div>
+
+  <div class="container footer-bottom">
+    &copy; 2024&ndash;<span id="year">2026</span> Department of Ports &amp; Customs - Ajman. All rights reserved.
+  </div>
+</footer>
+
+<!-- ==========================================================
+     FRONTEND VALIDATION ONLY — the form still submits via native POST.
+     ========================================================== -->
+<script>
+  (function () {
+    var form = document.getElementById('caseForm');
+    var sendBtn = form.querySelector('.btn-send');
+    var fields = form.querySelectorAll('input:not([type=hidden]):not([type=submit]), select, textarea');
+    var desc = document.getElementById('description');
+    var counter = document.getElementById('desc-count');
+    var submitting = false;
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function validate(el) {
+      if (el.tagName !== 'SELECT' && el.value !== el.value.trim()) el.value = el.value.trim();
+      var ok = el.checkValidity();
+      el.closest('.field').classList.toggle('invalid', !ok);
+      el.setAttribute('aria-invalid', String(!ok));
+      return ok;
+    }
+
+    fields.forEach(function (el) {
+      el.addEventListener('blur', function () { validate(el); });
+      el.addEventListener('change', function () { validate(el); });
+      el.addEventListener('input', function () {
+        if (el.closest('.field').classList.contains('invalid')) validate(el);
+      });
+    });
+
+    desc.addEventListener('input', function () {
+      counter.textContent = desc.value.length + ' / ' + desc.maxLength;
+    });
+
+    form.addEventListener('submit', function (e) {
+      if (submitting) { e.preventDefault(); return; }
+
+      var firstInvalid = null;
+      fields.forEach(function (el) {
+        if (!validate(el) && !firstInvalid) firstInvalid = el;
+      });
+
+      if (firstInvalid) {
+        e.preventDefault();
+        firstInvalid.focus();
+        return;
+      }
+
+      submitting = true;
+      sendBtn.classList.add('is-loading');
+      sendBtn.value = 'Sending…';
+    });
+
+    // Restore the button if the user returns via the browser Back button (bfcache).
+    window.addEventListener('pageshow', function () {
+      submitting = false;
+      sendBtn.classList.remove('is-loading');
+      sendBtn.value = 'Send';
+    });
+  })();
+</script>
+
+</body>
+</html>
