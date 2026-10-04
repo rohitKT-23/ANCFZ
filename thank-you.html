@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inquiry received</title>
+<style>
+  :root {
+    --primary: #2C6192;
+    --text: #2B2B2B;
+    --text-muted: #6B7280;
+    --card-border: #E3E7EE;
+    --font: "Helvetica Neue", Helvetica, Arial, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font); color: var(--text); background: #fff; }
+  .site-header { border-bottom: 1px solid var(--card-border); }
+  .container { max-width: 760px; margin: 0 auto; padding: 28px 20px; }
+  .logo-slot {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 120px; min-height: 48px; padding: 8px 16px;
+    border: 1px dashed #C9D1DE; border-radius: 8px; color: var(--text-muted);
+    text-decoration: none; font-size: 14px;
+  }
+  .card {
+    margin-top: 28px; padding: 36px 28px; border: 1px solid var(--card-border);
+    border-radius: 20px; text-align: center;
+  }
+  h1 { margin: 0 0 12px; font-size: 28px; color: var(--primary); }
+  p { margin: 0 auto 20px; max-width: 460px; line-height: 1.6; color: var(--text-muted); }
+  a.back {
+    display: inline-block; padding: 12px 22px; border-radius: 8px;
+    background: var(--primary); color: #fff; text-decoration: none; font-weight: 600;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a class="logo-slot" href="index.html" aria-label="Home">[LOGO]</a>
+  </div>
+</header>
+<main class="container">
+  <section class="card" aria-label="Inquiry received">
+    <h1>Thank you</h1>
+    <p>Your inquiry has been received. Our team will review it and contact you using the details you provided.</p>
+    <a class="back" href="index.html">Back to home</a>
+  </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--  ----------------------------------------------------------------------  -->
+<!--  NOTE: Please add the following <META> element to your page <HEAD>.      -->
+<!--  If necessary, please modify the charset parameter to specify the        -->
+<!--  character set of your HTML page.                                        -->
+<!--  ----------------------------------------------------------------------  -->
+
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact with Chairman</title>
+
+<style>
+  /* ==========================================================
+     1. DESIGN TOKENS (shared with Contact Us page)
+     ========================================================== */
+  :root {
+    --primary: #2C6192;
+    --primary-dark: #234E77;
+    --primary-ring: rgba(44, 97, 146, 0.18);
+    --label: #1F3B5C;
+    --photo-border: #A9D4F0;
+    --text: #2B2B2B;
+    --text-muted: #6B7280;
+    --input-bg: #EEF1F6;
+    --input-border: #C9D1DE;
+    --card-border: #E3E7EE;
+    --page-bg: #FFFFFF;
+    --required: #D9363E;
+    --white: #FFFFFF;
+
+    --radius-form: 20px;
+    --radius-photo: 16px;
+    --radius-input: 8px;
+
+    --container: 1260px;
+    --font: "Helvetica Neue", Helvetica, Arial, "Segoe UI", sans-serif;
+  }
+
+  /* ==========================================================
+     2. BASE
+     ========================================================== */
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--page-bg);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; }
+
+  svg { display: block; flex-shrink: 0; }
+
+  .container {
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ==========================================================
+     3. HEADER (logo only)
+     ========================================================== */
+  .site-header { padding: 20px 0; }
+
+  .logo-slot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    height: 60px;
+    padding: 0 16px;
+    border: 1.5px dashed var(--input-border);
+    border-radius: var(--radius-input);
+    color: var(--text-muted);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .logo-slot img { height: 60px; width: auto; }
+
+  /* ==========================================================
+     4. PAGE INTRO + CHAIRMAN PROFILE
+     ========================================================== */
+  .page-intro { padding-top: 40px; padding-bottom: 40px; }
+
+  .page-intro h1 {
+    margin: 0 0 32px;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--primary);
+  }
+
+  .profile {
+    display: flex;
+    align-items: flex-end;
+    gap: 36px;
+    margin-bottom: 28px;
+  }
+
+  .profile-photo {
+    flex: 0 0 250px;
+    width: 250px;
+    height: 224px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: #F5F8FC;
+    border: 1px solid var(--photo-border);
+    border-radius: var(--radius-photo);
+    color: var(--text-muted);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .profile-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+
+  .profile-info { padding-bottom: 6px; }
+
+  .profile-name {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  .profile-role { margin: 0; font-size: 17px; color: #3D3D3D; }
+
+  .intro-text { margin: 0; font-size: 15px; color: var(--text); }
+
+  /* ==========================================================
+     5. FORM CARD
+     ========================================================== */
+  .form-card {
+    background: var(--white);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-form);
+    padding: 40px 38px;
+    margin-bottom: 40px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 16px;
+  }
+
+  .field { display: flex; flex-direction: column; min-width: 0; }
+  .field.full { grid-column: 1 / -1; }
+
+  .field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--label);
+    margin-bottom: 8px;
+  }
+  .field .req { color: var(--required); margin-left: 2px; }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-input);
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .field input { height: 46px; padding: 0 14px; }
+
+  .field textarea {
+    min-height: 130px;
+    padding: 12px 14px;
+    line-height: 1.5;
+    resize: vertical;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder { color: #8A93A3; }
+
+  .field input:hover,
+  .field textarea:hover { border-color: #A9B5C8; }
+
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    background-color: var(--white);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-ring);
+  }
+
+  .input-icon { position: relative; }
+  .input-icon input { padding-right: 46px; }
+  .input-icon svg {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    width: 18px;
+    height: 18px;
+    transform: translateY(-50%);
+    color: var(--primary);
+    pointer-events: none;
+  }
+
+  .field.invalid input,
+  .field.invalid textarea { border-color: var(--required); }
+
+  .field.invalid input:focus,
+  .field.invalid textarea:focus { box-shadow: 0 0 0 4px rgba(217, 54, 62, 0.14); }
+
+  .field-error {
+    display: none;
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--required);
+  }
+  .field.invalid .field-error { display: block; }
+
+  .btn-send {
+    width: 100%;
+    height: 46px;
+    margin-top: 40px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--primary);
+    border: none;
+    border-radius: var(--radius-input);
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .btn-send:hover { background: var(--primary-dark); }
+  .btn-send:active { transform: translateY(1px); }
+  .btn-send:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--primary-ring); }
+  .btn-send.is-loading { opacity: 0.8; cursor: progress; pointer-events: none; }
+
+  /* ==========================================================
+     6. FOOTER (shared with Contact Us page)
+     ========================================================== */
+  .site-footer {
+    background: var(--primary);
+    color: var(--white);
+    padding: 56px 0 0;
+    margin-top: 48px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 40px;
+  }
+
+  .footer-logo-slot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    height: 56px;
+    padding: 0 16px;
+    margin-bottom: 24px;
+    border: 1.5px dashed rgba(255, 255, 255, 0.45);
+    border-radius: var(--radius-input);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .footer-logo-slot img { height: 56px; width: auto; }
+
+  .footer-contact { list-style: none; margin: 0 0 20px; padding: 0; }
+  .footer-contact li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+  }
+  .footer-contact li + li { margin-top: 14px; }
+  .footer-contact .badge {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.15);
+  }
+  .footer-contact .badge svg { width: 14px; height: 14px; }
+  .footer-contact a { color: var(--white); text-decoration: none; }
+  .footer-contact a:hover { text-decoration: underline; }
+
+  .footer-social { display: flex; gap: 12px; }
+  .footer-social a {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: var(--white);
+    transition: background-color 0.2s ease;
+  }
+  .footer-social a:hover { background: rgba(255, 255, 255, 0.15); }
+  .footer-social a:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
+  .footer-social svg { width: 20px; height: 20px; }
+
+  .footer-note {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    max-width: 520px;
+    font-size: 12px;
+  }
+  .footer-note p { margin: 0; color: rgba(255, 255, 255, 0.9); }
+
+  .footer-heading {
+    margin: 0 0 22px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .quick-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 32px;
+  }
+  .quick-links a {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .quick-links a:hover { color: var(--white); text-decoration: underline; }
+
+  .visitor-wrap { text-align: center; padding-bottom: 20px; }
+  .visitor-count {
+    display: inline-block;
+    padding: 8px 18px;
+    background: var(--white);
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    padding-top: 20px;
+    padding-bottom: 24px;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* ==========================================================
+     7. RESPONSIVE
+     ========================================================== */
+  @media (max-width: 991px) {
+    .form-card { padding: 32px 28px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 0 16px; }
+    .page-intro { padding-top: 24px; padding-bottom: 28px; }
+    .page-intro h1 { font-size: 26px; margin-bottom: 20px; }
+
+    .profile { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .profile-photo { flex-basis: auto; width: 100%; max-width: 280px; height: 250px; }
+
+    .form-card { padding: 24px 18px 28px; border-radius: 16px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .btn-send { margin-top: 28px; }
+
+    .quick-links { gap: 12px 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==========================================================
+     HEADER — logo only (no navigation)
+     ========================================================== -->
+<header class="site-header">
+  <div class="container">
+    <!-- LOGO: replace the text inside .logo-slot with
+         <img src="assets/logo.png" alt="Department of Ports & Customs - Ajman">
+         and remove the dashed border from .logo-slot in CSS. -->
+    <a class="logo-slot" href="index.html" aria-label="Home">[LOGO]</a>
+  </div>
+</header>
+
+<main class="container">
+  <!-- ==========================================================
+       PAGE INTRO + CHAIRMAN PROFILE
+       ========================================================== -->
+  <section class="page-intro">
+    <h1>Contact with Chairman</h1>
+
+    <div class="profile">
+      <!-- CHAIRMAN PHOTO: replace the text below with
+           <img src="assets/chairman.jpg" alt="Mohammed bin Abdullah Al Nuaimi"> -->
+      <div class="profile-photo">[CHAIRMAN PHOTO]</div>
+
+      <div class="profile-info">
+        <p class="profile-name">Mohammed bin Abdullah Al Nuaimi</p>
+        <p class="profile-role">Chairman of Port and Customs Department</p>
+      </div>
+    </div>
+
+    <p class="intro-text">I consider direct communication with you to be one of my top priorities, as it allows us to listen to your feedback and suggestions for improving the services of the Ports and Customs Department in Ajman. You can contact me using the form below, and I will make sure to respond within two business days. I look forward to engaging with you and collaborating to build a better future for our services.</p>
+  </section>
+
+  <!-- ==========================================================
+       FORM CARD
+       ========================================================== -->
+  <section class="form-card" aria-label="Contact with Chairman form">
+
+    <!-- ================================================================
+         SALESFORCE WEB-TO-CASE (NEW ORG 00DWV00000SZ6lZ) — DO NOT MODIFY
+         action URL, method, orgid, retURL, hidden inputs, and every
+         input "name" attribute below are required by Salesforce.
+         ================================================================ -->
+
+    <!--  ----------------------------------------------------------------------  -->
+    <!--  NOTE: Please add the following <FORM> element to your page.             -->
+    <!--  ----------------------------------------------------------------------  -->
+
+    <!-- ======================================================================
+     NEW ORG 00DWV00000SZ6lZ - Web-to-Case template.
+     Standard parameters (no field IDs needed): name, company, phone, email,
+     subject, description, origin. CaseTrigger copies name -> Customer_Name__c
+     and company -> Company_Name__c.
+     TODO before go-live: replace the two placeholders with the 15-char field
+     IDs from Setup > Web-to-Case HTML Generator in the new org:
+       00NWV00000Hwuxz -> Case.Submission_Channel__c
+       00NWV00000Hwuxw       -> Case.Inquiry_Type__c (Contact Us only)
+     Until replaced, Salesforce ignores those two values (Case is still created).
+     retURL is the thank-you page. Publish thank-you.html with this folder.
+     ====================================================================== -->
+    <form id="caseForm" action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DWV00000SZ6lZ" method="POST" novalidate>
+
+    <input type=hidden name="orgid" value="00DWV00000SZ6lZ">
+    <input type=hidden name="retURL" value="https://rohitkt-23.github.io/ANCFZ/web-to-case-new-org/thank-you.html">
+
+    <!-- Submission Channel: fixed to "Chairman Form" for this page (Contact Us page uses "Contact Us"). -->
+    <input type="hidden" name="00NWV00000Hwuxz" id="00NWV00000Hwuxz" value="Chairman Form">
+
+    <!-- Case Origin: must match the Origin picklist API value exactly. -->
+    <input type="hidden" name="origin" id="origin" value="Chairman Web Form">
+
+    <input type="hidden" id="external" name="external" value="1" />
+
+    <!--  ----------------------------------------------------------------------  -->
+    <!--  NOTE: These fields are optional debugging elements. Please uncomment    -->
+    <!--  these lines if you wish to test in debug mode.                          -->
+    <!--  <input type="hidden" name="debug" value=1>                              -->
+    <!--  <input type="hidden" name="debugEmail"                                  -->
+    <!--  value="mohamed.jassem@apcd.ae">                                         -->
+    <!--  ----------------------------------------------------------------------  -->
+
+    <!-- ================= END SALESFORCE HIDDEN FIELDS ================= -->
+
+      <div class="form-grid">
+
+        <!-- Name → Salesforce Customer Name name -->
+        <div class="field">
+          <label for="name">Name<span class="req" aria-hidden="true">*</span></label>
+          <input id="name" maxlength="80" name="name" size="20" type="text" placeholder="Full Name" autocomplete="name" required aria-describedby="err-name" />
+          <span class="field-error" id="err-name">Please enter your name.</span>
+        </div>
+
+        <!-- Company → Salesforce Company Name company -->
+        <div class="field">
+          <label for="company">Company</label>
+          <input id="company" maxlength="80" name="company" size="20" type="text" placeholder="Enter your Company name" autocomplete="organization" />
+        </div>
+
+        <!-- Mobile number → Salesforce phone -->
+        <div class="field">
+          <label for="phone">Mobile number</label>
+          <div class="input-icon">
+            <input id="phone" maxlength="40" name="phone" size="20" type="tel" placeholder="+971xxxxxxxxx" autocomplete="tel" inputmode="tel" pattern="[0-9+()\-\s]{7,40}" aria-describedby="err-phone" />
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <span class="field-error" id="err-phone">Please enter a valid mobile number.</span>
+        </div>
+
+        <!-- Email → Salesforce email -->
+        <div class="field">
+          <label for="email">Email<span class="req" aria-hidden="true">*</span></label>
+          <div class="input-icon">
+            <input id="email" maxlength="80" name="email" size="20" type="email" placeholder="name@domain.com" autocomplete="email" required aria-describedby="err-email" />
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          </div>
+          <span class="field-error" id="err-email">Please enter a valid email address.</span>
+        </div>
+
+        <!-- Subject → Salesforce subject -->
+        <div class="field full">
+          <label for="subject">Subject<span class="req" aria-hidden="true">*</span></label>
+          <input id="subject" maxlength="80" name="subject" size="20" type="text" placeholder="Enter your Subject" required aria-describedby="err-subject" />
+          <span class="field-error" id="err-subject">Please enter a subject.</span>
+        </div>
+
+        <!-- Message → Salesforce description -->
+        <div class="field full">
+          <label for="description">Message<span class="req" aria-hidden="true">*</span></label>
+          <textarea id="description" name="description" maxlength="32000" placeholder="Enter your message or inquiry" required aria-describedby="err-desc"></textarea>
+          <span class="field-error" id="err-desc">Please enter your message.</span>
+        </div>
+
+      </div>
+
+      <input class="btn-send" type="submit" name="submit" value="Submit">
+
+    </form>
+    <!-- ================= END SALESFORCE WEB-TO-CASE FORM ================= -->
+  </section>
+</main>
+
+<!-- ==========================================================
+     FOOTER (shared with Contact Us page; replace [PLACEHOLDERS] and "#" links)
+     ========================================================== -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div>
+      <!-- FOOTER LOGO: replace text with <img src="assets/logo-white.png" alt="Department of Ports & Customs - Ajman"> -->
+      <div class="footer-logo-slot">[FOOTER LOGO]</div>
+
+      <ul class="footer-contact">
+        <li>
+          <span class="badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </span>
+          <a href="tel:80070">Ajman Contact Center: 80070</a>
+        </li>
+        <li>
+          <span class="badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          </span>
+          <a href="mailto:info@apcd.ae">info@apcd.ae</a>
+        </li>
+      </ul>
+
+      <nav class="footer-social" aria-label="Social media">
+        <a href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3a5 5 0 0 0-5 5v2H7v4h2v7h4v-7h3l1-4h-4V9a1 1 0 0 1 1-1z"/></svg>
+        </a>
+        <a href="#" aria-label="X">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+        </a>
+        <a href="#" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.65-4.5A9 9 0 1 1 7.5 19.5z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a3.5 3.5 0 0 1-1.8-1.8l.8-1-1-2z"/></svg>
+        </a>
+      </nav>
+
+      <!-- MAP: add an embedded map or map image here once an official asset/URL is available. -->
+
+      <div class="footer-note">
+        <p>The site is best viewed using Microsoft Edge, Mozilla Firefox, Safari and Chrome.<br>Optimal Screen Resolution: 1440 &times; 900</p>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="footer-heading">Quick Links</h3>
+      <ul class="quick-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="contact-us.html">Contact Us</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="chairman.html" aria-current="page">Contact Chairman</a></li>
+        <li><a href="#">Open Data Policy</a></li>
+        <li><a href="#">Write a Suggestion</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Terms and Conditions</a></li>
+        <li><a href="#">Customer Experience Promise</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">News</a></li>
+        <li><a href="#">Emergency</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- VISITOR COUNT: replace [VISITOR COUNT] with the value from your analytics/counter service. -->
+  <div class="container visitor-wrap">
+    <span class="visitor-count">Visitor Count: [VISITOR COUNT]</span>
+  </div>
+
+  <div class="container footer-bottom">
+    &copy; 2024&ndash;<span id="year">2026</span> Department of Ports &amp; Customs - Ajman. All rights reserved.
+  </div>
+</footer>
+
+<!-- ==========================================================
+     FRONTEND VALIDATION ONLY — the form still submits via native POST.
+     ========================================================== -->
+<script>
+  (function () {
+    var form = document.getElementById('caseForm');
+    var sendBtn = form.querySelector('.btn-send');
+    var fields = form.querySelectorAll('input:not([type=hidden]):not([type=submit]), textarea');
+    var submitting = false;
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function validate(el) {
+      if (el.value !== el.value.trim()) el.value = el.value.trim();
+      var ok = el.checkValidity();
+      el.closest('.field').classList.toggle('invalid', !ok);
+      el.setAttribute('aria-invalid', String(!ok));
+      return ok;
+    }
+
+    fields.forEach(function (el) {
+      el.addEventListener('blur', function () { validate(el); });
+      el.addEventListener('input', function () {
+        if (el.closest('.field').classList.contains('invalid')) validate(el);
+      });
+    });
+
+    form.addEventListener('submit', function (e) {
+      if (submitting) { e.preventDefault(); return; }
+
+      var firstInvalid = null;
+      fields.forEach(function (el) {
+        if (!validate(el) && !firstInvalid) firstInvalid = el;
+      });
+
+      if (firstInvalid) {
+        e.preventDefault();
+        firstInvalid.focus();
+        return;
+      }
+
+      submitting = true;
+      sendBtn.classList.add('is-loading');
+      sendBtn.value = 'Submitting…';
+    });
+
+    // Restore the button if the user returns via the browser Back button (bfcache).
+    window.addEventListener('pageshow', function () {
+      submitting = false;
+      sendBtn.classList.remove('is-loading');
+      sendBtn.value = 'Submit';
+    });
+  })();
+</script>
+
+</body>
+</html>
